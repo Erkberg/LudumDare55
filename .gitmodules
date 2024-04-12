@@ -1,0 +1,3 @@
+[submodule "LD55/addons/ErkbergsGodotLibrary"]
+	path = LD55/addons/ErkbergsGodotLibrary
+	url = https://github.com/Erkberg/ErkbergsGodotLibrary.git
