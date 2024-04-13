@@ -1,3 +1,4 @@
+using ErkbergsGodotLibrary;
 using Godot;
 using System;
 
@@ -9,6 +10,7 @@ public partial class Main : Node3D
     [Export] public PlayerCenter playerCenter;
     [Export] public Progress progress;
     [Export] public IngameUi ingameUi;
+    [Export] public Shake3D camShake;
 
     public override void _EnterTree()
     {

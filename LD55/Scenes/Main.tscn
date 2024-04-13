@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvwwertaipmcr"]
+[gd_scene load_steps=12 format=3 uid="uid://bvwwertaipmcr"]
 
 [ext_resource type="Script" path="res://Scenes/Main.cs" id="1_du52n"]
 [ext_resource type="PackedScene" uid="uid://bu78oye14023r" path="res://Scenes/Player/PlayerCenter.tscn" id="1_hkhgl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Util/ChangeTimeScaleWithInputAction.cs" id="2_t7iqv"]
 [ext_resource type="PackedScene" uid="uid://bhu8oi2rvv6ec" path="res://Scenes/Enemies/EnemyManager.tscn" id="2_w4spe"]
 [ext_resource type="PackedScene" uid="uid://d3qkyl5reihc2" path="res://Scenes/IngameUi.tscn" id="3_87ak0"]
+[ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Util/Shake3D.cs" id="5_ekceh"]
 [ext_resource type="PackedScene" uid="uid://byl08jn8g8h8p" path="res://Scenes/Player/BaseSummon.tscn" id="7_sehr3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8vanr"]
@@ -21,12 +22,13 @@ sky = SubResource("Sky_nnpln")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("playerCenter", "progress", "ingameUi")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("playerCenter", "progress", "ingameUi", "camShake")]
 script = ExtResource("1_du52n")
 worldBounds = Vector2(32, 20)
 playerCenter = NodePath("PlayerCenter")
 progress = NodePath("Progress")
 ingameUi = NodePath("IngameUI")
+camShake = NodePath("CamShake")
 
 [node name="TimeCheat" type="Node" parent="."]
 script = ExtResource("2_t7iqv")
@@ -44,7 +46,13 @@ environment = SubResource("Environment_jkghw")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CamShake" type="Node3D" parent="."]
+script = ExtResource("5_ekceh")
+duration = 0.33
+magnitude = 0.33
+diminishingMagnitude = true
+
+[node name="Camera3D" type="Camera3D" parent="CamShake"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 projection = 1
 size = 32.0

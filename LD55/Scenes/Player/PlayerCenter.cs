@@ -18,6 +18,8 @@ public partial class PlayerCenter : Interactable
 
     public void Damage(float amount)
     {
+        Main.inst.camShake.StartShake();
         health.Damage(amount);
+        Main.inst.ingameUi.SetHealth(health.CurrentHealth, health.MaxHealth);
     }
 }
