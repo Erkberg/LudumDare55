@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhu8oi2rvv6ec"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/EnemyManager.cs" id="1_1vhr2"]
+[ext_resource type="Script" path="res://Scenes/Enemies/EnemyTypeHolder.cs" id="2_2mnsv"]
+[ext_resource type="PackedScene" uid="uid://clite5vkgkmr" path="res://Scenes/Enemies/BaseEnemy.tscn" id="3_nwqjf"]
+
+[node name="EnemyManager" type="Node3D"]
+script = ExtResource("1_1vhr2")
+
+[node name="BaseEnemyHolder" type="Node3D" parent="." node_paths=PackedStringArray("spawnTimer")]
+script = ExtResource("2_2mnsv")
+enemyScene = ExtResource("3_nwqjf")
+spawnTimer = NodePath("BaseEnemySpawnTimer")
+
+[node name="BaseEnemySpawnTimer" type="Timer" parent="BaseEnemyHolder"]

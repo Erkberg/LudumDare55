@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="LD55"
-config/features=PackedStringArray("4.2", "Forward Plus")
+run/main_scene="res://Scenes/Main.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
@@ -21,3 +22,8 @@ project/assembly_name="LD55"
 [editor]
 
 naming/scene_name_casing=1
+
+[rendering]
+
+anti_aliasing/quality/msaa_3d=3
+anti_aliasing/quality/screen_space_aa=1

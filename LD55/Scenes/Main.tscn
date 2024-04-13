@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvwwertaipmcr"]
+
+[ext_resource type="Script" path="res://Scenes/Main.cs" id="1_du52n"]
+[ext_resource type="PackedScene" uid="uid://bu78oye14023r" path="res://Scenes/Player/PlayerCenter.tscn" id="1_hkhgl"]
+[ext_resource type="PackedScene" uid="uid://bhu8oi2rvv6ec" path="res://Scenes/Enemies/EnemyManager.tscn" id="2_w4spe"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8vanr"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_nnpln"]
+sky_material = SubResource("ProceduralSkyMaterial_8vanr")
+
+[sub_resource type="Environment" id="Environment_jkghw"]
+background_mode = 1
+sky = SubResource("Sky_nnpln")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("playerCenter")]
+script = ExtResource("1_du52n")
+worldBounds = Vector2(28, 16)
+playerCenter = NodePath("PlayerCenter")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jkghw")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+projection = 1
+size = 32.0
+far = 100.0
+
+[node name="PlayerCenter" parent="." instance=ExtResource("1_hkhgl")]
+
+[node name="EnemyManager" parent="." instance=ExtResource("2_w4spe")]
