@@ -29,6 +29,7 @@ coyoteTimer = NodePath("Timers/CoyoteTimer")
 jumpBufferTimer = NodePath("Timers/JumpBufferTimer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_g15gd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

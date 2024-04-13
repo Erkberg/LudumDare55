@@ -43,6 +43,7 @@ public partial class Player : FirstPersonCharacter3D
 
     private void UpdateRaycast()
     {
+        forwardRaycast.GlobalPosition = camPivot.GlobalPosition;
         forwardRaycast.TargetPosition = GetCamForward() * maxSummonDistance;
         forwardRaycast.ForceRaycastUpdate();
     }
