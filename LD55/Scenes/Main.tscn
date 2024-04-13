@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvwwertaipmcr"]
+[gd_scene load_steps=11 format=3 uid="uid://bvwwertaipmcr"]
 
 [ext_resource type="Script" path="res://Scenes/Main.cs" id="1_du52n"]
 [ext_resource type="PackedScene" uid="uid://bu78oye14023r" path="res://Scenes/Player/PlayerCenter.tscn" id="1_hkhgl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Util/ChangeTimeScaleWithInputAction.cs" id="2_t7iqv"]
 [ext_resource type="PackedScene" uid="uid://bhu8oi2rvv6ec" path="res://Scenes/Enemies/EnemyManager.tscn" id="2_w4spe"]
 [ext_resource type="PackedScene" uid="uid://d3qkyl5reihc2" path="res://Scenes/IngameUi.tscn" id="3_87ak0"]
+[ext_resource type="PackedScene" uid="uid://byl08jn8g8h8p" path="res://Scenes/Player/BaseSummon.tscn" id="7_sehr3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8vanr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -52,3 +53,8 @@ far = 100.0
 [node name="PlayerCenter" parent="." instance=ExtResource("1_hkhgl")]
 
 [node name="EnemyManager" parent="." instance=ExtResource("2_w4spe")]
+
+[node name="Summons" type="Node3D" parent="."]
+
+[node name="BaseSummon" parent="Summons" instance=ExtResource("7_sehr3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)

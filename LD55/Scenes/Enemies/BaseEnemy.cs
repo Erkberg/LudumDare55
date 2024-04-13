@@ -46,8 +46,12 @@ public partial class BaseEnemy : Interactable
         if (area is PlayerCenter playerCenter)
         {
             playerCenter.Damage(damage);
-            OnDied();
+            QueueFree();
+        }
+
+        if (area is BaseSummon summon)
+        {
+            health.Damage(summon.damage);
         }
     }
-
 }
