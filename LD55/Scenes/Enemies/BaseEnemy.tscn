@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://clite5vkgkmr"]
+[gd_scene load_steps=6 format=3 uid="uid://clite5vkgkmr"]
 
 [ext_resource type="Material" uid="uid://kx1diq66336d" path="res://Assets/EmissiveRedMat.tres" id="1_7wm70"]
 [ext_resource type="Script" path="res://Scenes/Enemies/BaseEnemy.cs" id="1_hh72e"]
+[ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Components/HealthComponent.cs" id="3_0vfr0"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_vfxt2"]
 radius = 0.25
@@ -10,8 +11,9 @@ height = 0.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_gqwiw"]
 radius = 0.25
 
-[node name="BaseEnemy" type="Area3D"]
+[node name="BaseEnemy" type="Area3D" node_paths=PackedStringArray("health")]
 script = ExtResource("1_hh72e")
+health = NodePath("Health")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = ExtResource("1_7wm70")
@@ -19,3 +21,6 @@ mesh = SubResource("SphereMesh_vfxt2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_gqwiw")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_0vfr0")

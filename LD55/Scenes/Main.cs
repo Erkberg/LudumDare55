@@ -7,6 +7,8 @@ public partial class Main : Node3D
 
     [Export] public Vector2 worldBounds;
     [Export] public PlayerCenter playerCenter;
+    [Export] public Progress progress;
+    [Export] public IngameUi ingameUi;
 
     public override void _EnterTree()
     {

@@ -1,17 +1,22 @@
 using Godot;
 using System;
 
-public partial class BaseEnemy : Area3D
+public partial class BaseEnemy : Interactable
 {
     [Export] public EnemyType type;
     [Export] public float moveSpeed = 1;
+    [Export] public float damage = 1;
+    [Export] public float value = 1;
+    [Export] public HealthComponent health;
 
     private Vector3 playerCenterPosition;
 
     public override void _Ready()
     {
-        AreaEntered += OnAreaEntered;
         playerCenterPosition = Main.inst.playerCenter.GlobalPosition;
+
+        AreaEntered += OnAreaEntered;
+        health.Died += OnDied;
     }
 
     public override void _Process(double delta)
@@ -25,12 +30,23 @@ public partial class BaseEnemy : Area3D
         GlobalPosition += direction * moveSpeed * (float)delta;
     }
 
+    protected override void OnMouseEnter()
+    {
+        health.Damage(1);
+    }
+
+    protected virtual void OnDied()
+    {
+        Main.inst.progress.AddCurrency(value);
+        QueueFree();
+    }
+
     private void OnAreaEntered(Area3D area)
     {
-        if (area is PlayerCenter)
+        if (area is PlayerCenter playerCenter)
         {
-            GD.Print("damage!");
-            QueueFree();
+            playerCenter.Damage(damage);
+            OnDied();
         }
     }
 
