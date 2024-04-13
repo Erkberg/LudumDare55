@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bu78oye14023r"]
 
-[ext_resource type="Script" path="res://Scenes/Player/PlayerCenter.cs" id="1_8qpds"]
-[ext_resource type="Material" uid="uid://cf1aep7ih6km3" path="res://Assets/EmissiveWhiteMat.tres" id="1_74gf6"]
+[ext_resource type="Script" path="res://Scenes/TD/Player/PlayerCenter.cs" id="1_8qpds"]
+[ext_resource type="Material" uid="uid://cf1aep7ih6km3" path="res://Assets/Materials/EmissiveWhiteMat.tres" id="1_74gf6"]
 [ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Components/HealthComponent.cs" id="3_35b7j"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_ybqef"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddgbsln6rvkmp"]
+
+[ext_resource type="Material" uid="uid://j5lywbm5ibvi" path="res://Assets/Materials/GroundMat.tres" id="1_qje2w"]
+
+[node name="Playground" type="Node3D"]
+
+[node name="Ground" type="CSGBox3D" parent="."]
+material_override = ExtResource("1_qje2w")
+use_collision = true
+size = Vector3(16, 0.01, 16)

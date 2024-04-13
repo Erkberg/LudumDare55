@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://bvwwertaipmcr"]
 
-[ext_resource type="Script" path="res://Scenes/Main.cs" id="1_du52n"]
-[ext_resource type="PackedScene" uid="uid://bu78oye14023r" path="res://Scenes/Player/PlayerCenter.tscn" id="1_hkhgl"]
-[ext_resource type="Script" path="res://Scenes/Progress.cs" id="2_6j12g"]
+[ext_resource type="Script" path="res://Scenes/TD/Main.cs" id="1_du52n"]
+[ext_resource type="PackedScene" uid="uid://bu78oye14023r" path="res://Scenes/TD/Player/PlayerCenter.tscn" id="1_hkhgl"]
+[ext_resource type="Script" path="res://Scenes/TD/Progress.cs" id="2_6j12g"]
 [ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Util/ChangeTimeScaleWithInputAction.cs" id="2_t7iqv"]
-[ext_resource type="PackedScene" uid="uid://bhu8oi2rvv6ec" path="res://Scenes/Enemies/EnemyManager.tscn" id="2_w4spe"]
-[ext_resource type="PackedScene" uid="uid://d3qkyl5reihc2" path="res://Scenes/IngameUi.tscn" id="3_87ak0"]
+[ext_resource type="PackedScene" uid="uid://bhu8oi2rvv6ec" path="res://Scenes/TD/Enemies/EnemyManager.tscn" id="2_w4spe"]
+[ext_resource type="PackedScene" uid="uid://d3qkyl5reihc2" path="res://Scenes/TD/IngameUi.tscn" id="3_87ak0"]
 [ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Util/Shake3D.cs" id="5_ekceh"]
-[ext_resource type="PackedScene" uid="uid://byl08jn8g8h8p" path="res://Scenes/Player/BaseSummon.tscn" id="7_sehr3"]
+[ext_resource type="PackedScene" uid="uid://byl08jn8g8h8p" path="res://Scenes/TD/Player/BaseSummon.tscn" id="7_sehr3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8vanr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

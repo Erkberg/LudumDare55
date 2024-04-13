@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d3qkyl5reihc2"]
 
-[ext_resource type="Script" path="res://Scenes/IngameUi.cs" id="1_c2qs8"]
+[ext_resource type="Script" path="res://Scenes/TD/IngameUi.cs" id="1_c2qs8"]
 
 [node name="IngameUI" type="Control" node_paths=PackedStringArray("currencyLabel", "centerHealthBar")]
 layout_mode = 3

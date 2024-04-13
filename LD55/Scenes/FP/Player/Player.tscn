@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxh4xggo41gb3"]
+
+[ext_resource type="Script" path="res://Scenes/FP/Player/Player.cs" id="1_if0nn"]
+[ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Util/Shake3D.cs" id="2_kcqwp"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g15gd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kihf2"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camShake", "savePositionTimer", "walkTimer", "camPivot", "cam", "coyoteTimer", "jumpBufferTimer")]
+script = ExtResource("1_if0nn")
+camShake = NodePath("CamPivot")
+savePositionTimer = NodePath("Timers/SavePositionTimer")
+walkTimer = NodePath("Timers/WalkTimer")
+moveUpAction = "MoveForward"
+moveDownAction = "MoveBackward"
+camPivot = NodePath("CamPivot")
+cam = NodePath("CamPivot/Camera3D")
+coyoteTimer = NodePath("Timers/CoyoteTimer")
+jumpBufferTimer = NodePath("Timers/JumpBufferTimer")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_g15gd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_kihf2")
+
+[node name="CamPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, 0)
+script = ExtResource("2_kcqwp")
+
+[node name="Camera3D" type="Camera3D" parent="CamPivot"]
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+wait_time = 0.167
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+wait_time = 0.167
+one_shot = true
+
+[node name="SavePositionTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+autostart = true
+
+[node name="WalkTimer" type="Timer" parent="Timers"]
+wait_time = 0.33
+autostart = true

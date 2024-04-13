@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://byl08jn8g8h8p"]
 
-[ext_resource type="Script" path="res://Scenes/Player/BaseSummon.cs" id="1_7idd8"]
-[ext_resource type="Material" uid="uid://cf1aep7ih6km3" path="res://Assets/EmissiveWhiteMat.tres" id="2_n4nxr"]
+[ext_resource type="Script" path="res://Scenes/TD/Player/BaseSummon.cs" id="1_7idd8"]
+[ext_resource type="Material" uid="uid://cf1aep7ih6km3" path="res://Assets/Materials/EmissiveWhiteMat.tres" id="2_n4nxr"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_bd64p"]
 radius = 0.25
