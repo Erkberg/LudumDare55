@@ -22,7 +22,7 @@ public partial class ChasingClouds : Node3D
 
     [ExportGroup("Progress")]
     [Export] private float cloudsAmountExponent = 1.33f;
-    [Export] private int rainPerCloud = 4;
+    [Export] private int cloudsDuplicateThreshold = 4;
 
 
     private int cloudsCollected;
@@ -56,6 +56,8 @@ public partial class ChasingClouds : Node3D
         {
             if (mouseCast.GetCollider() is Cloud cloud)
             {
+                cloud.OnMouseOver();
+
                 if (Input.IsActionJustPressed(Inputs.Interact))
                 {
                     OnCloudCollected();
@@ -87,11 +89,17 @@ public partial class ChasingClouds : Node3D
     {
         cloudsCollected++;
 
-        cloudsAbove.Emitting = true;
-        rain.Emitting = true;
+        if (cloudsCollected % cloudsDuplicateThreshold == 0)
+        {
+            GpuParticles3D newCloudsAbove = cloudsAbove.Duplicate() as GpuParticles3D;
+            newCloudsAbove.Emitting = true;
+            cloudsAbove.GetParent().AddChild(newCloudsAbove);
 
-        cloudsAbove.Amount = Mathf.RoundToInt(Mathf.Pow(cloudsCollected, cloudsAmountExponent));
-        rain.Amount = cloudsAbove.Amount * rainPerCloud;
+            GpuParticles3D newRain = rain.Duplicate() as GpuParticles3D;
+            newRain.Emitting = true;
+            rain.GetParent().AddChild(newRain);
+        }
+
         cloudSpawnTimer.WaitTime *= 0.98f;
 
         GD.Print($"Collected: {cloudsCollected}, cloud particles: {cloudsAbove.Amount}, rain particles: {rain.Amount}");

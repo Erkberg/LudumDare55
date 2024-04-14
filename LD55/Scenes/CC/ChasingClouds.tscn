@@ -65,9 +65,10 @@ hills = NodePath("Hills")
 mainCam = NodePath("Camera3D")
 mouseCast = NodePath("MouseCast")
 cloudSpawnTimer = NodePath("CloudSpawnTimer")
-cloudsAbove = NodePath("CloudsAbove")
-rain = NodePath("Rain")
+cloudsAbove = NodePath("CloudsAbove/CloudsAbove")
+rain = NodePath("Rain/Rain")
 xPerZ = 2.0
+cloudsDuplicateThreshold = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_so5x3")
@@ -102,16 +103,20 @@ hillScene = ExtResource("3_f8qsp")
 
 [node name="Background" type="Node3D" parent="."]
 
-[node name="CloudsAbove" type="GPUParticles3D" parent="."]
+[node name="CloudsAbove" type="Node3D" parent="."]
+
+[node name="CloudsAbove" type="GPUParticles3D" parent="CloudsAbove"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -32)
-amount = 256
+amount = 4
 lifetime = 60.0
 process_material = SubResource("ParticleProcessMaterial_hoh3y")
 draw_pass_1 = SubResource("SphereMesh_41378")
 
-[node name="Rain" type="GPUParticles3D" parent="."]
+[node name="Rain" type="Node3D" parent="."]
+
+[node name="Rain" type="GPUParticles3D" parent="Rain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -32)
-amount = 1024
+amount = 16
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_tp5cw")
 draw_pass_1 = SubResource("CapsuleMesh_uthxh")
