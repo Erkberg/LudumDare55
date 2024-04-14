@@ -1,8 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://b05p0qt3t8hlx"]
+[gd_scene load_steps=20 format=3 uid="uid://b05p0qt3t8hlx"]
 
 [ext_resource type="Script" path="res://Scenes/CC/Cloud.cs" id="1_4i0fe"]
 [ext_resource type="Material" uid="uid://d4hhk3nbcd5c2" path="res://Assets/Materials/CloudMat.tres" id="1_pxwqy"]
 [ext_resource type="Script" path="res://addons/ErkbergsGodotLibrary/Components/HealthComponent.cs" id="3_lv6sr"]
+[ext_resource type="AudioStream" uid="uid://7jww24hr4k82" path="res://Assets/Sounds/Dodge1.wav" id="4_n0va8"]
+[ext_resource type="AudioStream" uid="uid://klomndighaek" path="res://Assets/Sounds/Dodge2.wav" id="5_71ww3"]
+[ext_resource type="AudioStream" uid="uid://c4ulgp3moaqa7" path="res://Assets/Sounds/Dodge3.wav" id="6_kenyj"]
+[ext_resource type="AudioStream" uid="uid://b3es0e5x80lc3" path="res://Assets/Sounds/Dodge4.wav" id="7_4dayy"]
+[ext_resource type="AudioStream" uid="uid://cloaqyd52v3mt" path="res://Assets/Sounds/Collect.wav" id="8_xpna8"]
+[ext_resource type="Material" uid="uid://cj70icv480ack" path="res://Assets/Materials/EmissiveBlackMat.tres" id="9_ybumn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5o1cn"]
 radius = 0.6
@@ -30,11 +36,45 @@ scale_curve = SubResource("CurveTexture_c20kg")
 [sub_resource type="SphereMesh" id="SphereMesh_sg01g"]
 material = ExtResource("1_pxwqy")
 
-[node name="Cloud" type="Area3D" node_paths=PackedStringArray("visuals", "health", "dodgeTimer")]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_i8h36"]
+playback_mode = 1
+random_pitch = 1.1
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("4_n0va8")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_71ww3")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_kenyj")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_4dayy")
+stream_3/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_t2xsj"]
+playback_mode = 1
+random_pitch = 1.1
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("8_xpna8")
+stream_0/weight = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_uum0e"]
+material = ExtResource("9_ybumn")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="TorusMesh" id="TorusMesh_8nomg"]
+material = ExtResource("9_ybumn")
+inner_radius = 0.7
+
+[node name="Cloud" type="Area3D" node_paths=PackedStringArray("visuals", "health", "dodgeTimer", "collectSound", "dodgeSound", "collectFace")]
 script = ExtResource("1_4i0fe")
 visuals = NodePath("Meshes")
 health = NodePath("Health")
 dodgeTimer = NodePath("DodgeTimer")
+collectSound = NodePath("CollectSound")
+dodgeSound = NodePath("DodgeSound")
+collectFace = NodePath("CollectFace")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.1, -0.05, 0)
@@ -84,3 +124,24 @@ script = ExtResource("3_lv6sr")
 [node name="DodgeTimer" type="Timer" parent="."]
 wait_time = 0.33
 one_shot = true
+
+[node name="DodgeSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_i8h36")
+
+[node name="CollectSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_t2xsj")
+
+[node name="CollectFace" type="Node3D" parent="."]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollectFace"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.1687, 0.1687, 0.410592)
+mesh = SubResource("SphereMesh_uum0e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollectFace"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.168096, 0.1687, 0.410592)
+mesh = SubResource("SphereMesh_uum0e")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="CollectFace"]
+transform = Transform3D(0.2, 0, 0, 0, 0.0965342, -0.17516, 0, 0.17516, 0.0965342, 0.00383317, -0.167563, 0.380971)
+mesh = SubResource("TorusMesh_8nomg")

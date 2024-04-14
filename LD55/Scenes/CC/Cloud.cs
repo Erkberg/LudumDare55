@@ -9,6 +9,9 @@ public partial class Cloud : Area3D
     [Export] private HealthComponent health;
     [Export] private Timer dodgeTimer;
     [Export] private float maxDodgeOffset = 2f;
+    [Export] private AudioStreamPlayer collectSound;
+    [Export] private AudioStreamPlayer dodgeSound;
+    [Export] private Node3D collectFace;
 
     private float initialX;
     private MoveMode moveMode;
@@ -23,7 +26,8 @@ public partial class Cloud : Area3D
         SineUpDown,
         SineFrontBack,
         SineForwardBackward,
-        Circle
+        Circle,
+        Collect
     }
 
     public void Init()
@@ -67,7 +71,7 @@ public partial class Cloud : Area3D
         {
             direction.X *= -1;
         }
-
+        dodgeSound.Play();
         dodgeTimer.Start();
         Tween tween = CreateTween();
         Vector3 offset = new Vector3((float)GD.RandRange(-maxDodgeOffset, maxDodgeOffset), (float)GD.RandRange(-maxDodgeOffset, maxDodgeOffset), (float)GD.RandRange(-maxDodgeOffset, maxDodgeOffset));
@@ -110,6 +114,9 @@ public partial class Cloud : Area3D
                 break;
             case MoveMode.Circle:
                 break;
+            case MoveMode.Collect:
+                GlobalPosition += Vector3.Up * moveSpeed * delta * 2f;
+                break;
         }
         GlobalPosition = GlobalPosition.MoveToward(targetPosition, delta);
     }
@@ -121,7 +128,7 @@ public partial class Cloud : Area3D
 
     private void CheckDeath()
     {
-        if (Mathf.Abs(GlobalPosition.X) > initialX * 1.5f)
+        if (Mathf.Abs(GlobalPosition.X) > initialX * 1.5f || Mathf.Abs(GlobalPosition.Y) > 32f)
         {
             Disappear();
         }
@@ -142,6 +149,8 @@ public partial class Cloud : Area3D
             }
             else
             {
+                collectSound.Play();
+                collectFace.Visible = true;
                 Disappear();
                 return true;
             }
@@ -157,6 +166,8 @@ public partial class Cloud : Area3D
 
     public void Disappear()
     {
-        QueueFree();
+        moveMode = MoveMode.Collect;
+        Monitorable = false;
+        Monitoring = false;
     }
 }

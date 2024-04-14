@@ -101,7 +101,7 @@ public partial class ChasingClouds : Node3D
             rain.GetParent().AddChild(newRain);
         }
 
-        cloudSpawnTimer.WaitTime *= 0.98f;
+        cloudSpawnTimer.WaitTime *= 0.99f;
 
         GD.Print($"Collected: {cloudsCollected}, cloud particles: {cloudsAbove.Amount}, rain particles: {rain.Amount}");
     }
