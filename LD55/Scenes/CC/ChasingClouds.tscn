@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b7s3vipbagxst"]
+[gd_scene load_steps=19 format=3 uid="uid://b7s3vipbagxst"]
 
 [ext_resource type="Script" path="res://Scenes/CC/ChasingClouds.cs" id="1_ll2lo"]
 [ext_resource type="Script" path="res://Scenes/CC/Hills.cs" id="2_53orn"]
@@ -59,7 +59,11 @@ material = ExtResource("4_4maa7")
 radius = 0.02
 height = 0.5
 
-[node name="ChasingClouds" type="Node3D" node_paths=PackedStringArray("clouds", "hills", "mainCam", "mouseCast", "cloudSpawnTimer", "cloudsAbove", "rain", "atmoPlayer")]
+[sub_resource type="LabelSettings" id="LabelSettings_ddag4"]
+font_size = 24
+
+[node name="ChasingClouds" type="Node3D" node_paths=PackedStringArray("clouds", "hills", "mainCam", "mouseCast", "cloudSpawnTimer", "cloudsAbove", "rain", "atmoPlayer", "introHolder", "introLabels")]
+process_mode = 3
 script = ExtResource("1_ll2lo")
 clouds = NodePath("Clouds")
 hills = NodePath("Hills")
@@ -71,6 +75,8 @@ rain = NodePath("Rain/Rain")
 xPerZ = 2.0
 cloudsDuplicateThreshold = 1
 atmoPlayer = NodePath("AtmoPlayer")
+introHolder = NodePath("IntroTexts")
+introLabels = [NodePath("IntroTexts/HBoxContainer/Label"), NodePath("IntroTexts/HBoxContainer/Label2"), NodePath("IntroTexts/HBoxContainer/Label3"), NodePath("IntroTexts/HBoxContainer/Label4"), NodePath("IntroTexts/HBoxContainer/Label5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_so5x3")
@@ -88,7 +94,6 @@ collide_with_areas = true
 
 [node name="CloudSpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
@@ -124,25 +129,73 @@ process_material = SubResource("ParticleProcessMaterial_tp5cw")
 draw_pass_1 = SubResource("CapsuleMesh_uthxh")
 
 [node name="IntroTexts" type="Control" parent="."]
-visible = false
+process_mode = 3
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="IntroTexts"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Background" type="ColorRect" parent="IntroTexts"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.878431)
+
+[node name="HBoxContainer" type="VBoxContainer" parent="IntroTexts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -239.5
+offset_top = -63.5
+offset_right = 239.5
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="IntroTexts/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-text = "One dry year already takes a huge toll on the land.
-And we just had several of those ...
-They say trying to summon the rain is like chasing clouds.
-But desperate times call for desperate measures.
-So, that's exactly what we'll do! Maybe also tickle them a bit ..."
+text = "One dry year already takes a huge toll on the land."
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="IntroTexts/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "And we just had several of those ..."
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="IntroTexts/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "They say trying to summon the rain is like chasing clouds."
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="IntroTexts/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "But desperate times call for desperate measures."
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="IntroTexts/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "So, that's exactly what we'll do! Maybe also tickle them a bit ..."
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
 
 [node name="TimeCheat" type="Node" parent="."]
 script = ExtResource("7_3q0du")

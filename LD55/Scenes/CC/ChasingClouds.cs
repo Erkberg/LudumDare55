@@ -1,5 +1,7 @@
 using Godot;
+using Godot.Collections;
 using System;
+using System.Threading.Tasks;
 
 public partial class ChasingClouds : Node3D
 {
@@ -27,6 +29,10 @@ public partial class ChasingClouds : Node3D
     [ExportGroup("Audio")]
     [Export] private AudioStreamPlayer atmoPlayer;
 
+    [ExportGroup("UI")]
+    [Export] private Control introHolder;
+    [Export] private Array<Label> introLabels;
+
     public float time;
     private int cloudsCollected;
 
@@ -39,6 +45,28 @@ public partial class ChasingClouds : Node3D
         rain.Emitting = false;
 
         cloudSpawnTimer.Timeout += OnCloudSpawnTimerTimeout;
+    }
+
+    public override void _Ready()
+    {
+        IntroSequence();
+    }
+
+    private async void IntroSequence()
+    {
+        GetTree().Paused = true;
+        await Task.Delay(1000);
+        for (int i = 0; i < introLabels.Count; i++)
+        {
+            Tween tween = CreateTween();
+            tween.TweenProperty(introLabels[i], "modulate", Colors.White, 2f);
+            await Task.Delay(4000);
+        }
+
+        Tween tweenOut = CreateTween();
+        tweenOut.TweenProperty(introHolder, "modulate", Colors.Transparent, 2f);
+        cloudSpawnTimer.Start();
+        GetTree().Paused = false;
     }
 
     private void OnCloudSpawnTimerTimeout()
