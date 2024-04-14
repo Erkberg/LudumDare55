@@ -24,7 +24,7 @@ public partial class ChasingClouds : Node3D
     [Export] private float cloudsAmountExponent = 1.33f;
     [Export] private int cloudsDuplicateThreshold = 4;
 
-
+    public float time;
     private int cloudsCollected;
 
 
@@ -46,6 +46,7 @@ public partial class ChasingClouds : Node3D
 
     public override void _Process(double delta)
     {
+        time += (float)delta;
         UpdateMouseCast();
         CheckInteraction();
     }

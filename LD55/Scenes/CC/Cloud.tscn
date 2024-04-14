@@ -82,4 +82,5 @@ draw_pass_1 = SubResource("SphereMesh_sg01g")
 script = ExtResource("3_lv6sr")
 
 [node name="DodgeTimer" type="Timer" parent="."]
+wait_time = 0.33
 one_shot = true
