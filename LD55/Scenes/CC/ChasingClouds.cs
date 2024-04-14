@@ -24,6 +24,9 @@ public partial class ChasingClouds : Node3D
     [Export] private float cloudsAmountExponent = 1.33f;
     [Export] private int cloudsDuplicateThreshold = 4;
 
+    [ExportGroup("Audio")]
+    [Export] private AudioStreamPlayer atmoPlayer;
+
     public float time;
     private int cloudsCollected;
 
@@ -103,6 +106,11 @@ public partial class ChasingClouds : Node3D
 
         cloudSpawnTimer.WaitTime *= 0.99f;
 
-        GD.Print($"Collected: {cloudsCollected}, cloud particles: {cloudsAbove.Amount}, rain particles: {rain.Amount}");
+        atmoPlayer.VolumeDb = -16 * (1f - GetFinishPercentage()) - 8f;
+    }
+
+    private float GetFinishPercentage()
+    {
+        return (float)cloudsCollected / 100f;
     }
 }
