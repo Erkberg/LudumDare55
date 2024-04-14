@@ -21,10 +21,14 @@ public partial class ChasingClouds : Node3D
     [Export] public float minY = 0, maxY = 2;
     [Export] public float maxX = 2;
     [Export] public float xPerZ = 1.5f;
+    [Export] public BaseMaterial3D groundMat;
+    [Export] public Color brownColor;
+    [Export] public Color greenColor;
 
     [ExportGroup("Progress")]
     [Export] private float cloudsAmountExponent = 1.33f;
     [Export] private int cloudsDuplicateThreshold = 4;
+    [Export] private float cloudsToWin = 50;
 
     [ExportGroup("Audio")]
     [Export] private AudioStreamPlayer atmoPlayer;
@@ -32,6 +36,7 @@ public partial class ChasingClouds : Node3D
     [ExportGroup("UI")]
     [Export] private Control introHolder;
     [Export] private Array<Label> introLabels;
+    [Export] private Control outroHolder;
 
     public float time;
     private int cloudsCollected;
@@ -49,7 +54,8 @@ public partial class ChasingClouds : Node3D
 
     public override void _Ready()
     {
-        IntroSequence();
+        //IntroSequence();
+        IntroEnd();
     }
 
     private async void IntroSequence()
@@ -63,6 +69,11 @@ public partial class ChasingClouds : Node3D
             await Task.Delay(4000);
         }
 
+        IntroEnd();
+    }
+
+    private void IntroEnd()
+    {
         Tween tweenOut = CreateTween();
         tweenOut.TweenProperty(introHolder, "modulate", Colors.Transparent, 2f);
         cloudSpawnTimer.Start();
@@ -80,6 +91,11 @@ public partial class ChasingClouds : Node3D
         time += (float)delta;
         UpdateMouseCast();
         CheckInteraction();
+
+        if (Input.IsActionJustPressed(Inputs.Quit))
+        {
+            GetTree().Quit();
+        }
     }
 
     private void CheckInteraction()
@@ -132,13 +148,25 @@ public partial class ChasingClouds : Node3D
             rain.GetParent().AddChild(newRain);
         }
 
-        cloudSpawnTimer.WaitTime *= 0.99f;
+        cloudSpawnTimer.WaitTime *= 0.98f;
 
         atmoPlayer.VolumeDb = -16 * (1f - GetFinishPercentage()) - 8f;
+        groundMat.AlbedoColor = brownColor.Lerp(greenColor, GetFinishPercentage());
+
+        if (cloudsCollected == cloudsToWin)
+        {
+            Outro();
+        }
+    }
+
+    private void Outro()
+    {
+        Tween tweenOut = CreateTween();
+        tweenOut.TweenProperty(outroHolder, "modulate", Colors.White, 2f);
     }
 
     private float GetFinishPercentage()
     {
-        return (float)cloudsCollected / 100f;
+        return (float)cloudsCollected / cloudsToWin;
     }
 }

@@ -67,7 +67,7 @@ height = 0.2
 material = ExtResource("9_ybumn")
 inner_radius = 0.7
 
-[node name="Cloud" type="Area3D" node_paths=PackedStringArray("visuals", "health", "dodgeTimer", "collectSound", "dodgeSound", "collectFace")]
+[node name="Cloud" type="Area3D" node_paths=PackedStringArray("visuals", "health", "dodgeTimer", "collectSound", "dodgeSound", "collectFace", "collisionShape3D")]
 script = ExtResource("1_4i0fe")
 visuals = NodePath("Meshes")
 health = NodePath("Health")
@@ -75,6 +75,7 @@ dodgeTimer = NodePath("DodgeTimer")
 collectSound = NodePath("CollectSound")
 dodgeSound = NodePath("DodgeSound")
 collectFace = NodePath("CollectFace")
+collisionShape3D = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.1, -0.05, 0)

@@ -12,6 +12,7 @@ public partial class Cloud : Area3D
     [Export] private AudioStreamPlayer collectSound;
     [Export] private AudioStreamPlayer dodgeSound;
     [Export] private Node3D collectFace;
+    [Export] private CollisionShape3D collisionShape3D;
 
     private float initialX;
     private MoveMode moveMode;
@@ -166,6 +167,7 @@ public partial class Cloud : Area3D
 
     public void Disappear()
     {
+        collisionShape3D.Disabled = true;
         moveMode = MoveMode.Collect;
         Monitorable = false;
         Monitoring = false;

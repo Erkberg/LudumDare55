@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://b7s3vipbagxst"]
+[gd_scene load_steps=22 format=3 uid="uid://b7s3vipbagxst"]
 
 [ext_resource type="Script" path="res://Scenes/CC/ChasingClouds.cs" id="1_ll2lo"]
 [ext_resource type="Script" path="res://Scenes/CC/Hills.cs" id="2_53orn"]
 [ext_resource type="Script" path="res://Scenes/CC/Clouds.cs" id="2_ku20e"]
+[ext_resource type="Material" uid="uid://b8guwdyh8m7ep" path="res://Assets/Materials/BrownGroundMat.tres" id="2_pgdlv"]
 [ext_resource type="PackedScene" uid="uid://cggt3kkwjr510" path="res://Scenes/CC/Hill.tscn" id="3_f8qsp"]
 [ext_resource type="PackedScene" uid="uid://b05p0qt3t8hlx" path="res://Scenes/CC/Cloud.tscn" id="3_s6pwb"]
 [ext_resource type="Material" uid="uid://cf1aep7ih6km3" path="res://Assets/Materials/EmissiveWhiteMat.tres" id="4_4maa7"]
@@ -62,7 +63,13 @@ height = 0.5
 [sub_resource type="LabelSettings" id="LabelSettings_ddag4"]
 font_size = 24
 
-[node name="ChasingClouds" type="Node3D" node_paths=PackedStringArray("clouds", "hills", "mainCam", "mouseCast", "cloudSpawnTimer", "cloudsAbove", "rain", "atmoPlayer", "introHolder", "introLabels")]
+[sub_resource type="LabelSettings" id="LabelSettings_exe6b"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_u7fra"]
+font_size = 12
+
+[node name="ChasingClouds" type="Node3D" node_paths=PackedStringArray("clouds", "hills", "mainCam", "mouseCast", "cloudSpawnTimer", "cloudsAbove", "rain", "atmoPlayer", "introHolder", "introLabels", "outroHolder")]
 process_mode = 3
 script = ExtResource("1_ll2lo")
 clouds = NodePath("Clouds")
@@ -73,10 +80,14 @@ cloudSpawnTimer = NodePath("CloudSpawnTimer")
 cloudsAbove = NodePath("CloudsAbove/CloudsAbove")
 rain = NodePath("Rain/Rain")
 xPerZ = 2.0
+groundMat = ExtResource("2_pgdlv")
+brownColor = Color(0.301961, 0.168627, 0.196078, 1)
+greenColor = Color(0.145098, 0.337255, 0.180392, 1)
 cloudsDuplicateThreshold = 1
 atmoPlayer = NodePath("AtmoPlayer")
 introHolder = NodePath("IntroTexts")
 introLabels = [NodePath("IntroTexts/HBoxContainer/Label"), NodePath("IntroTexts/HBoxContainer/Label2"), NodePath("IntroTexts/HBoxContainer/Label3"), NodePath("IntroTexts/HBoxContainer/Label4"), NodePath("IntroTexts/HBoxContainer/Label5")]
+outroHolder = NodePath("OutroText")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_so5x3")
@@ -84,10 +95,11 @@ environment = SubResource("Environment_so5x3")
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
+shadow_opacity = 0.33
 shadow_blur = 3.3
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1.33, 0)
 
 [node name="MouseCast" type="RayCast3D" parent="."]
 collide_with_areas = true
@@ -99,6 +111,7 @@ wait_time = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
 use_collision = true
 size = Vector3(128, 0.1, 128)
+material = ExtResource("2_pgdlv")
 
 [node name="Clouds" type="Node3D" parent="."]
 script = ExtResource("2_ku20e")
@@ -197,7 +210,79 @@ text = "So, that's exactly what we'll do! Maybe also tickle them a bit ..."
 label_settings = SubResource("LabelSettings_ddag4")
 horizontal_alignment = 1
 
+[node name="OutroText" type="Control" parent="."]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Background" type="ColorRect" parent="OutroText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="HBoxContainer" type="VBoxContainer" parent="OutroText"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -239.5
+offset_top = -63.5
+offset_right = 239.5
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="OutroText/HBoxContainer"]
+layout_mode = 2
+text = "Thanks a lot for playing!"
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="OutroText/HBoxContainer"]
+layout_mode = 2
+text = "Chasing Clouds"
+label_settings = SubResource("LabelSettings_exe6b")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="OutroText/HBoxContainer"]
+layout_mode = 2
+text = "A game by Erkberg"
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="OutroText/HBoxContainer"]
+layout_mode = 2
+text = "Created within 24h* for Ludum Dare 55 (Theme: Summoning)"
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="OutroText/HBoxContainer"]
+layout_mode = 2
+text = "Feel free to press Esc to quit at any time"
+label_settings = SubResource("LabelSettings_ddag4")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="OutroText/HBoxContainer"]
+layout_mode = 2
+text = "* (hence lacking a bit concerning polish and such)"
+label_settings = SubResource("LabelSettings_u7fra")
+horizontal_alignment = 1
+
 [node name="TimeCheat" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("7_3q0du")
 actionName = "TimeCheat"
 

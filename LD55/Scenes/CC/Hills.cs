@@ -21,10 +21,14 @@ public partial class Hills : Node3D
         {
             for (float x = -cc.maxX - z * cc.xPerZ; x <= cc.maxX + z * cc.xPerZ; x += step)
             {
-                Hill hillInstance = hillScene.Instantiate<Hill>();
-                AddChild(hillInstance);
-                hillInstance.Name = $"Hill_{x}_{z}";
-                hillInstance.GlobalPosition = new Vector3((float)(x + GD.RandRange(-maxSpawnRand, maxSpawnRand)), -0.2f, (float)(-z + GD.RandRange(-maxSpawnRand, maxSpawnRand)));
+                if (GD.Randf() < 0.42f)
+                {
+                    Hill hillInstance = hillScene.Instantiate<Hill>();
+                    AddChild(hillInstance);
+                    hillInstance.Name = $"Hill_{x}_{z}";
+                    hillInstance.GlobalPosition = new Vector3((float)(x + GD.RandRange(-maxSpawnRand, maxSpawnRand)), -0.2f, (float)(-z + GD.RandRange(-maxSpawnRand, maxSpawnRand)));
+                    hillInstance.Init();
+                }
             }
         }
     }

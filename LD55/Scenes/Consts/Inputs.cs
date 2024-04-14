@@ -5,4 +5,5 @@ public partial class Inputs
 {
     public const string Interact = "Interact";
     public const string Recall = "Recall";
+    public const string Quit = "Quit";
 }
