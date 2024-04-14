@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://b05p0qt3t8hlx"]
+
+[ext_resource type="Script" path="res://Scenes/CC/Cloud.cs" id="1_4i0fe"]
+[ext_resource type="Material" uid="uid://d4hhk3nbcd5c2" path="res://Assets/Materials/CloudMat.tres" id="1_pxwqy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5o1cn"]
+radius = 0.6
+height = 2.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_3wvaq"]
+material = ExtResource("1_pxwqy")
+
+[node name="Cloud" type="Area3D" node_paths=PackedStringArray("visuals")]
+script = ExtResource("1_4i0fe")
+visuals = NodePath("Meshes")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.1, -0.05, 0)
+shape = SubResource("CapsuleShape3D_5o1cn")
+
+[node name="Meshes" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Meshes"]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3wvaq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0.419341, -0.1928, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3wvaq")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -0.776021, -0.1446, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3wvaq")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.35668, -0.366321, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3wvaq")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.747102, -0.1446, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3wvaq")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.50128, 0.13014, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3wvaq")
