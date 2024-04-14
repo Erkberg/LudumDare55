@@ -57,9 +57,9 @@ public partial class ChasingClouds : Node3D
         {
             if (mouseCast.GetCollider() is Cloud cloud)
             {
-                cloud.OnMouseOver();
+                bool collected = cloud.OnMouseOver();
 
-                if (Input.IsActionJustPressed(Inputs.Interact))
+                if (collected)
                 {
                     OnCloudCollected();
                     cloud.OnClicked();

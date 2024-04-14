@@ -132,12 +132,22 @@ public partial class Cloud : Area3D
         visuals.Visible = true;
     }
 
-    public void OnMouseOver()
+    public bool OnMouseOver()
     {
-        if (health.CurrentHealth > 0 && dodgeTimer.IsStopped())
+        if (dodgeTimer.IsStopped())
         {
-            health.Damage(1);
+            if (health.CurrentHealth > 0)
+            {
+                health.Damage(1);
+            }
+            else
+            {
+                Disappear();
+                return true;
+            }
         }
+
+        return false;
     }
 
     public void OnClicked()
